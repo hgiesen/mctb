@@ -28,7 +28,7 @@ async def main():
         result = await crawler.arun(
             url="https://www.bbc.com/weather/2759794",
         )
-        print(result.markdown)
+        #####print(result.markdown)
         return result
 
 if __name__ == "__main__":
@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
 # to be honest, i know a debug statement would be easier, but this is one of my perks 
 # from higher informatics, when experimenting i prefer print statements :-)
-print("URL is: ")
+print("URL page is: ")
 
 # cross check if we got the right page
 print(neResult.url)
@@ -56,9 +56,14 @@ questionToAsk='Can you describe the weather for today in the netherlands? Use th
 # but for this experiment its not needed. Accepting its slow
 questionToAsk = questionToAsk + neResult.markdown
 
+
+# dummy overwrite to quick check if DS is running
+# questionToAsk='hello who are you?' 
+
 # Again print statement that we are done with the question and start the deepseeking
 print("Model initialized successfull" )
-
+print(questionToAsk
+      )
 # run the model.
 response = ollama.chat(model=desiredModel, messages=[
   {
@@ -66,7 +71,16 @@ response = ollama.chat(model=desiredModel, messages=[
     'content': questionToAsk,
   },
 ])
-OllamaResponse=response['message']['content']
+
 
 # print the output, in this case the weather clothing advise
+# storing the response in a variable for later usage
+print(" Response is: ")
+
+OllamaResponse=response['message']['content']
+print(OllamaResponse)
+
+print (' and duration was:') 
+
+# show also how much tokens this took in duration
 print(response.total_duration)
